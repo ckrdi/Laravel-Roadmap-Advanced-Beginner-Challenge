@@ -15,4 +15,9 @@ class Client extends Model
         'address',
         'phone_number'
     ];
+
+    public function projects(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Project::class);
+    }
 }
