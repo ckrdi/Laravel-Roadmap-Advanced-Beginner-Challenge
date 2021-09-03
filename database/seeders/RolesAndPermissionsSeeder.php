@@ -40,6 +40,9 @@ class RolesAndPermissionsSeeder extends Seeder
             'manage task'
         ]);
 
-        $userRole->givePermissionTo('manage task');
+        $userRole->givePermissionTo([
+            'manage project',
+            'manage task'
+        ]);
     }
 }
