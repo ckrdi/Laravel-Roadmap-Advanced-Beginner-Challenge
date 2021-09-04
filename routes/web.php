@@ -23,10 +23,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/dashboard/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/dashboard/users/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('/dashboard/users', [UserController::class, 'store'])->name('users.store');
-    Route::get('/dashboard/users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::resource('users', UserController::class);
+    });
 });
 
 require __DIR__.'/auth.php';

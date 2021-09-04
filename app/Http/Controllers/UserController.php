@@ -27,6 +27,7 @@ class UserController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
@@ -40,8 +41,9 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request)
     {
@@ -51,6 +53,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => 'required'
         ]);
 
         $user = User::create([
@@ -83,29 +86,57 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('users.edit', [
+            'user' => $user,
+            'roles' => Role::all()
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\User $user
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, User $user)
     {
-        //
+        $this->authorize('manage user');
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'role' => 'required'
+        ]);
+
+        $user->update([
+           'name' => $request->name
+        ]);
+
+        $user->syncRoles($request->role);
+
+        return redirect(RouteServiceProvider::HOME);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\User $user
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(User $user)
     {
-        //
+        $this->authorize('manage user');
+
+        if (!count($user->projects)) {
+            $user->forceDelete();
+
+            return redirect(RouteServiceProvider::HOME);
+        }
+
+        $user->delete();
+
+        return redirect(RouteServiceProvider::HOME);
     }
 }

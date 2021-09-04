@@ -7,13 +7,28 @@
         </div>
         <div class="flex items-center justify-between mt-2">
             @can('manage user')
-                <div class="flex items-center">
-                    <x-button>
+                <div x-data="{ open: false }" class="relative flex items-center">
+                    <x-link href="{{ route('users.edit', [ 'user' => $user ]) }}">
                         Edit
-                    </x-button>
-                    <x-button class="ml-2">
+                    </x-link>
+                    <x-button @click="open = ! open" class="ml-2">
                         Delete
                     </x-button>
+                    <div x-show="open"
+                         class="absolute bg-white border border-indigo-500 rounded-lg px-4 py-2 text-sm
+                                    flex flex-col items-start bottom-8 left-14 z-10">
+                        <span class="mb-2">You sure?</span>
+                        <form method="POST" action="{{ route('users.destroy', [ 'user' => $user ]) }}">
+                            @csrf
+                            @method('DELETE')
+
+                            <x-button onclick="event.preventDefault();
+                                               this.closest('form').submit();"
+                            >
+                                Delete
+                            </x-button>
+                        </form>
+                    </div>
                 </div>
             @endcan
             <x-link href="{{ route('users.index') }}" class="ml-2">

@@ -42,7 +42,7 @@
                          name="password_confirmation" required />
             </div>
 
-            <!-- Category -->
+            <!-- Roles -->
             <div class="mt-4">
                 <x-label for="role" :value="__('Roles')" />
 
