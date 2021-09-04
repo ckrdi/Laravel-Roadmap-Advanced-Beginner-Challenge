@@ -16,19 +16,17 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
-    <body class="font-sans antialiased">
-        <div class="bg-gray-100 h-screen">
-            @include('layouts.navigation')
-            <div class="flex min-h-full">
-                <!-- Page Heading -->
-                <header class="bg-indigo-500 w-1/6">
-                    <div class="">
-                        {{ $header }}
-                    </div>
+    <body class="font-sans antialiased h-screen">
+        <div class="flex flex-col min-h-full bg-gray-50">
+            <x-navigation />
+            <div class="md:flex md:flex-1">
+                <!-- Dashboard Navigation -->
+                <header class="md:w-1/6 bg-indigo-500">
+                    <x-dashboard-nav />
                 </header>
 
                 <!-- Page Content -->
-                <main class="w-5/6">
+                <main class="md:w-5/6">
                     {{ $slot }}
                 </main>
             </div>

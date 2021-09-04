@@ -4,7 +4,7 @@
     </h2>
     <div x-data="{ open: false }" class="mt-3">
         <div class="flex justify-between items-center">
-            <button>Users</button>
+            <a href="{{ route('users.index') }}">Users</a>
             @can('manage user')
                 <button @click="open = ! open">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
