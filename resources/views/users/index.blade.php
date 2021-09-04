@@ -7,9 +7,11 @@
             @foreach($users as $user)
                 <div class="mt-2 p-2 bg-white shadow-sm rounded-lg md:flex justify-between items-center">
                     <div>
-                        <div class="font-semibold">{{ $user->name }}</div>
-                        <div class="font-semibold">{{ $user->email }}</div>
-                        <div>Role: {{ $user->roles[0]->name }}</div>
+                        <a href="{{ route('users.show', [ 'user' => $user ]) }}"
+                           class="font-semibold text-xl"
+                        >
+                            {{ $user->name }}
+                        </a>
                     </div>
                     @can('manage user')
                     <div class="flex items-center mt-2 md:mt-0">

@@ -14,7 +14,7 @@
             @endcan
         </div>
         @can('manage user')
-            <div x-show="open">Create new user</div>
+            <a href="{{ route('users.create') }}" x-show="open">Register new user</a>
         @endcan
     </div>
     <div x-data="{ open: false }" class="mt-3">
