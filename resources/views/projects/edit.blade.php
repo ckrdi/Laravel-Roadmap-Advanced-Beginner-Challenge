@@ -6,8 +6,9 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('projects.store') }}">
+        <form method="POST" action="{{ route('projects.update', [ 'project' => $project ]) }}">
         @csrf
+        @method('PUT')
 
             <!-- Title -->
             <div>
@@ -34,7 +35,7 @@
                 <x-label for="deadline" :value="__('Deadline')" />
 
                 <x-input id="deadline" class="block mt-1 w-full"
-                         type="text"
+                         type="date"
                          name="deadline"
                          value="{{ $project->deadline }}"
                          required />

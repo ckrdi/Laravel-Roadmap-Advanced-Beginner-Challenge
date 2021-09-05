@@ -34,7 +34,7 @@
                 <x-label for="deadline" :value="__('Deadline')" />
 
                 <x-input id="deadline" class="block mt-1 w-full"
-                         type="text"
+                         type="date"
                          name="deadline"
                          required />
             </div>
