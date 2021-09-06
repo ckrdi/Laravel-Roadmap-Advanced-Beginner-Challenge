@@ -57,7 +57,7 @@
     <!-- Tasks -->
     <div x-data="{ open: false }" class="mt-3">
         <div class="flex justify-between items-center">
-            <button>Tasks</button>
+            <a href="{{ route('tasks.index') }}">Tasks</a>
             @can('manage task')
                 <button @click="open = ! open">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -67,7 +67,7 @@
             @endcan
         </div>
         @can('manage task')
-            <div x-show="open">Create new task</div>
+            <a href="{{ route('tasks.create') }}" x-show="open">Create new task</a>
         @endcan
     </div>
 
