@@ -2,10 +2,20 @@
     <div class="w-full sm:max-w-md mx-auto mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
         <div>
             <div class="font-semibold text-xl">{{ $project->title }}</div>
-            <div class="font-semibold text-lg">{{ $project->description }}</div>
+            <div class="font-semibold text-lg">Description: {{ $project->description }}</div>
             <div class="font-semibold text-lg">Deadline: {{ $project->deadline }}</div>
             <div>User: {{ $project->user->name }}</div>
             <div>Client: {{ $project->client->name }}</div>
+            <div>
+                <span>Tasks:</span>
+                <ul>
+                    @foreach($project->tasks as $task)
+                        <li>
+                            <span>&bull;</span><span> {{ $task->name }}</span>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
         <div class="flex items-center justify-between mt-2">
             @can('manage project')

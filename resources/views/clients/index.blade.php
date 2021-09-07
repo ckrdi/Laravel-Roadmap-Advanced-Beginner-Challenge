@@ -1,8 +1,24 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
         <div class="p-2 border-t border-b sm:border border-indigo-500 sm:rounded-lg">
-            <div class="p-2 pt-0 border-b border-indigo-500">
-                List of all clients
+            <div x-data="{ open: false }" class="relative p-2 pt-0 border-b border-indigo-500 flex items-center justify-between">
+                <div>
+                    List of all clients
+                </div>
+                <x-button @click="open = ! open">
+                    Options
+                </x-button>
+                <div x-show="open" class="absolute z-10 right-0 top-10 flex flex-col p-2 bg-white border border-indigo-500 rounded-lg">
+                    <x-link href="{{ route('clients.index') }}" active="{{ request()->routeIs('clients.index') }}">
+                        All clients
+                    </x-link>
+                    <x-link class="mt-2" href="{{ route('clients.active') }}" active="{{ request()->routeIs('clients.active') }}">
+                        Active clients
+                    </x-link>
+                    <x-link class="mt-2" href="{{ route('clients.nonactive') }}" active="{{ request()->routeIs('clients.nonactive') }}">
+                        Nonactive clients
+                    </x-link>
+                </div>
             </div>
             @foreach($clients as $client)
                 <div class="mt-2 p-2 bg-white shadow-sm rounded-lg md:flex justify-between items-center">

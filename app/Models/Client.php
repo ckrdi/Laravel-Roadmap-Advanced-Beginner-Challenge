@@ -20,4 +20,14 @@ class Client extends Model
     {
         return $this->hasMany(Project::class);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->has('projects');
+    }
+
+    public function scopeNonactive($query)
+    {
+        return $query->doesntHave('projects');
+    }
 }

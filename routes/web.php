@@ -25,6 +25,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('users/active', [UserController::class, 'active'])->name('users.active');
+        Route::get('users/nonactive', [UserController::class, 'nonactive'])->name('users.nonactive');
+
+        Route::get('clients/active', [ClientController::class, 'active'])->name('clients.active');
+        Route::get('clients/nonactive', [ClientController::class, 'nonactive'])->name('clients.nonactive');
+
         Route::resource('users', UserController::class);
         Route::resource('clients', ClientController::class);
         Route::resource('projects', ProjectController::class);

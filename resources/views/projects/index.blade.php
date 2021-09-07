@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
         <div class="p-2 border-t border-b sm:border border-indigo-500 sm:rounded-lg">
             <div class="p-2 pt-0 border-b border-indigo-500">
-                List of all users
+                List of all projects
             </div>
             @foreach($projects as $project)
                 <div class="mt-2 p-2 bg-white shadow-sm rounded-lg md:flex justify-between items-center">

@@ -131,4 +131,30 @@ class ClientController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
+    /**
+     * Display a listing of the client(s) who currently is working a project(s).
+     *
+     * @param void
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function active()
+    {
+        return view('clients.index', [
+            'clients' => Client::active()->latest('id')->get()
+        ]);
+    }
+
+    /**
+     * Display a listing of the client(s) who currently is not working a project(s).
+     *
+     * @param void
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function nonactive()
+    {
+        return view('clients.index', [
+            'clients' => Client::nonactive()->latest('id')->get()
+        ]);
+    }
 }

@@ -4,6 +4,17 @@
             <div class="font-semibold text-xl">{{ $client->name }}</div>
             <div class="font-semibold text-lg">Address: {{ $client->address }}</div>
             <div>Phone Num: {{ $client->phone_number }}</div>
+            <div>Currently working project:</div>
+            @if(count($client->projects))
+                @foreach($client->projects as $project)
+                    <div>
+                        <span>&hybull;</span><span> {{ $project->title }}</span>
+                    </div>
+                @endforeach
+            @else
+                <div>Not working any project</div>
+            @endif
+
         </div>
         <div class="flex items-center justify-between mt-2">
             @can('manage client')

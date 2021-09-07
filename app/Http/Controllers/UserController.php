@@ -139,4 +139,30 @@ class UserController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
+    /**
+     * Display a listing of the user(s) who currently is working a project(s).
+     *
+     * @param void
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function active()
+    {
+        return view('users.index', [
+            'users' => User::active()->latest('id')->get()
+        ]);
+    }
+
+    /**
+     * Display a listing of the user(s) who currently is not working a project(s).
+     *
+     * @param void
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function nonactive()
+    {
+        return view('users.index', [
+            'users' => User::nonactive()->latest('id')->get()
+        ]);
+    }
 }

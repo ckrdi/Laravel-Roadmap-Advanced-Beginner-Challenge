@@ -4,6 +4,16 @@
             <div class="font-semibold text-xl">{{ $user->name }}</div>
             <div class="font-semibold text-lg">{{ $user->email }}</div>
             <div>Role: {{ $user->roles[0]->name }}</div>
+            <div>Assigned Project:</div>
+            @if(count($user->projects))
+                @foreach($user->projects as $project)
+                    <div>
+                        <span>&hybull;</span><span> {{ $project->title }}</span>
+                    </div>
+                @endforeach
+            @else
+                <div>Not assigned to any project</div>
+            @endif
         </div>
         <div class="flex items-center justify-between mt-2">
             @can('manage user')
