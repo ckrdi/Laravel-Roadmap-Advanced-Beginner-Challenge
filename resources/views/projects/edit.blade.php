@@ -37,7 +37,7 @@
                 <x-input id="deadline" class="block mt-1 w-full"
                          type="date"
                          name="deadline"
-                         value="{{ $project->deadline }}"
+                         value="{{ date('Y-m-d', strtotime($project->deadline)) }}"
                          required />
             </div>
 

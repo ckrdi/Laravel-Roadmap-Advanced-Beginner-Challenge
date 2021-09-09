@@ -33,4 +33,39 @@ class Project extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    // Date accessor
+    public function getDeadlineAttribute($value): string
+    {
+        $months = [
+            '01' => 'January',
+            '02' => 'February',
+            '03' => 'March',
+            '04' => 'April',
+            '05' => 'May',
+            '06' => 'June',
+            '07' => 'July',
+            '08' => 'August',
+            '09' => 'September',
+            '10' => 'October',
+            '11' => 'November',
+            '12' => 'December'
+        ];
+
+        $newDateFormat = explode('-', $value);
+
+        return $months[$newDateFormat[1]] . ' ' . $newDateFormat[2] . ', ' . $newDateFormat[0];
+    }
+
+    // Title mutator
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = ucwords($value);
+    }
+
+    // Description mutator
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = ucfirst($value);
+    }
 }
