@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\Task;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -57,7 +56,7 @@ class TaskController extends Controller
             'project_id' => $request->project
         ]);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -110,7 +109,7 @@ class TaskController extends Controller
             'project_id' => $request->project
         ]);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -126,6 +125,6 @@ class TaskController extends Controller
 
         $task->delete();
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('tasks.index');
     }
 }

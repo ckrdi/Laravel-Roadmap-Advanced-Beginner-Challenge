@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -65,7 +64,7 @@ class ProjectController extends Controller
             'user_id' => $request->user,
         ]);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('projects.index');
     }
 
     /**
@@ -127,7 +126,7 @@ class ProjectController extends Controller
             'user_id' => $request->user,
         ]);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('projects.index');
     }
 
     /**
@@ -143,6 +142,6 @@ class ProjectController extends Controller
 
         $project->delete();
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('projects.index');
     }
 }

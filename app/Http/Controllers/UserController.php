@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -64,7 +63,7 @@ class UserController extends Controller
 
         $user->assignRole($request->role);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('users.index');
     }
 
     /**
@@ -86,6 +85,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('manage user');
+
         return view('users.edit', [
             'user' => $user,
             'roles' => Role::all()
@@ -115,7 +116,7 @@ class UserController extends Controller
 
         $user->syncRoles($request->role);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('users.index');
     }
 
     /**
@@ -132,12 +133,12 @@ class UserController extends Controller
         if (!count($user->projects)) {
             $user->forceDelete();
 
-            return redirect(RouteServiceProvider::HOME);
+            return redirect()->route('users.index');
         }
 
         $user->delete();
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('users.index');
     }
 
     /**

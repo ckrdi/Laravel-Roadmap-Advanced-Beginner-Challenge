@@ -20,7 +20,7 @@
                     </x-link>
                 </div>
             </div>
-            @foreach($clients as $client)
+            @forelse($clients as $client)
                 <div class="mt-2 p-2 bg-white shadow-sm rounded-lg md:flex justify-between items-center">
                     <div>
                         <a href="{{ route('clients.show', [ 'client' => $client ]) }}"
@@ -55,7 +55,11 @@
                         </div>
                     @endcan
                 </div>
-            @endforeach
+            @empty
+                <div class="mt-2 p-2 bg-white shadow-sm rounded-lg">
+                    No client
+                </div>
+            @endforelse
         </div>
     </div>
 </x-app-layout>

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -56,7 +55,7 @@ class ClientController extends Controller
             'phone_number' => $request->phone_number
         ]);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('clients.index');
     }
 
     /**
@@ -108,7 +107,7 @@ class ClientController extends Controller
             'phone_number' => $request->phone_number
         ]);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('clients.index');
     }
 
     /**
@@ -124,12 +123,12 @@ class ClientController extends Controller
         if (!count($client->projects)) {
             $client->forceDelete();
 
-            return redirect(RouteServiceProvider::HOME);
+            return redirect()->route('clients.index');
         }
 
         $client->delete();
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('clients.index');
     }
 
     /**

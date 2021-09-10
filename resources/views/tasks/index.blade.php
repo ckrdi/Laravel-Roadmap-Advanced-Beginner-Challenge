@@ -4,7 +4,7 @@
             <div class="p-2 pt-0 border-b border-indigo-500">
                 List of all tasks
             </div>
-            @foreach($tasks as $task)
+            @forelse($tasks as $task)
                 <div class="mt-2 p-2 bg-white shadow-sm rounded-lg md:flex justify-between items-center">
                     <div>
                         <a href="{{ route('tasks.show', [ 'task' => $task ]) }}"
@@ -39,7 +39,11 @@
                         </div>
                     @endcan
                 </div>
-            @endforeach
+            @empty
+                <div class="mt-2 p-2 bg-white shadow-sm rounded-lg">
+                    No task
+                </div>
+            @endforelse
         </div>
     </div>
 </x-app-layout>
