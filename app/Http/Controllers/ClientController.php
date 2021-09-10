@@ -44,18 +44,27 @@ class ClientController extends Controller
         $this->authorize('manage client');
 
         $request->validate([
-           'name' => 'required|unique:clients',
-           'address' => 'required',
-           'phone_number' => ['required', 'regex:/^(081)[0-9]{7}/']
+            'name' => 'required|unique:clients',
+            'address' => 'required',
+            'phone_number' => ['required', 'regex:/^(081)[0-9]{7}/'],
+            'thumbnail' => 'mimes:jpg,png'
         ]);
 
-        Client::create([
+        $client = Client::create([
             'name' => $request->name,
             'address' => $request->address,
             'phone_number' => $request->phone_number
         ]);
 
-        return redirect()->route('clients.index');
+        if ($request->hasFile('thumbnail')) {
+            $client->addMediaFromRequest('thumbnail')->toMediaCollection('thumbnails');
+        }
+
+        $clientName = $client->name;
+
+        return redirect()
+            ->route('clients.index')
+            ->with('message', "Client ${clientName} has been created");
     }
 
     /**
@@ -98,7 +107,8 @@ class ClientController extends Controller
         $request->validate([
             'name' => 'required',
             'address' => 'required',
-            'phone_number' => ['required', 'regex:/^(081)[0-9]{7}/']
+            'phone_number' => ['required', 'regex:/^(081)[0-9]{7}/'],
+            'thumbnail' => 'mimes:jpg,png'
         ]);
 
         $client->update([
@@ -107,7 +117,15 @@ class ClientController extends Controller
             'phone_number' => $request->phone_number
         ]);
 
-        return redirect()->route('clients.index');
+        if ($request->hasFile('thumbnail')) {
+            $client->addMediaFromRequest('thumbnail')->toMediaCollection('thumbnails');
+        }
+
+        $clientName = $client->name;
+
+        return redirect()
+            ->route('clients.index')
+            ->with('message', "Client ${clientName} has been updated");
     }
 
     /**
@@ -120,15 +138,21 @@ class ClientController extends Controller
     {
         $this->authorize('manage client');
 
+        $clientName = $client->name;
+
         if (!count($client->projects)) {
             $client->forceDelete();
 
-            return redirect()->route('clients.index');
+            return redirect()
+                ->route('clients.index')
+                ->with('message', "Client ${clientName} has been deleted");
         }
 
         $client->delete();
 
-        return redirect()->route('clients.index');
+        return redirect()
+            ->route('clients.index')
+            ->with('message', "Client ${clientName} has been deleted");
     }
 
     /**

@@ -56,7 +56,7 @@ class ProjectController extends Controller
             'user' => 'required'
         ]);
 
-        Project::create([
+        $project = Project::create([
             'title' => $request->title,
             'description' => $request->description,
             'deadline' => $request->deadline,
@@ -64,7 +64,11 @@ class ProjectController extends Controller
             'user_id' => $request->user,
         ]);
 
-        return redirect()->route('projects.index');
+        $projectTitle = $project->title;
+
+        return redirect()
+                ->route('projects.index')
+                ->with('message', "Project ${projectTitle} has been created");
     }
 
     /**
@@ -126,7 +130,11 @@ class ProjectController extends Controller
             'user_id' => $request->user,
         ]);
 
-        return redirect()->route('projects.index');
+        $projectTitle = $project->title;
+
+        return redirect()
+            ->route('projects.index')
+            ->with('message', "Project ${projectTitle} has been updated");
     }
 
     /**
@@ -140,8 +148,12 @@ class ProjectController extends Controller
     {
         $this->authorize('manage project');
 
+        $projectTitle = $project->title;
+
         $project->delete();
 
-        return redirect()->route('projects.index');
+        return redirect()
+            ->route('projects.index')
+            ->with('message', "Project ${projectTitle} has been deleted");
     }
 }

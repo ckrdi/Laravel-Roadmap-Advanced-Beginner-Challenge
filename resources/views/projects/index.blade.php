@@ -1,5 +1,14 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
+        @if(session('message'))
+            <div x-data="{ isVisible: true }"
+                 x-init="setTimeout(()=> isVisible = false, 5000)"
+                 x-show.transition.duration.1000ms="isVisible"
+                 class="text-green-500 mb-2"
+            >
+                {{ session('message') }}
+            </div>
+        @endif
         <div class="p-2 border-t border-b sm:border border-indigo-500 sm:rounded-lg">
             <div class="p-2 pt-0 border-b border-indigo-500">
                 List of all projects

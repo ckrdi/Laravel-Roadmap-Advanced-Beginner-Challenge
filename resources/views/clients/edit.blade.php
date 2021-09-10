@@ -6,7 +6,10 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('clients.update', [ 'client' => $client ]) }}">
+        <form method="POST"
+              action="{{ route('clients.update', [ 'client' => $client ]) }}"
+              enctype="multipart/form-data"
+        >
         @csrf
         @method('PUT')
 
@@ -39,6 +42,13 @@
                          name="phone_number"
                          value="{{ $client->phone_number }}"
                          required />
+            </div>
+
+            <!-- Thumbnail -->
+            <div class="mt-4">
+                <x-label for="thumbnail" :value="__('Thumbnail')" />
+
+                <x-input id="thumbnail" class="block mt-1 w-full" type="file" name="thumbnail" />
             </div>
 
             <div class="flex items-center justify-end mt-4">

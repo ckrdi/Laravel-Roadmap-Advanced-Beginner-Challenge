@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 
     Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('upload', [UploadController::class, 'create'])->name('upload.create');
+        Route::post('upload', [UploadController::class, 'store'])->name('upload.store');
+
         Route::get('users/active', [UserController::class, 'active'])->name('users.active');
         Route::get('users/nonactive', [UserController::class, 'nonactive'])->name('users.nonactive');
 

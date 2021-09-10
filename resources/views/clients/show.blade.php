@@ -1,6 +1,7 @@
 <x-app-layout>
     <div class="w-full sm:max-w-md mx-auto mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
         <div>
+            <img src="{{ $client->getFirstMediaUrl('thumbnails') ? $client->getFirstMediaUrl('thumbnails') : 'https://www.gravatar.com/avatar/000000000000000000000000000000000?d=mp' }}" alt="avatar" class="w-10 h-10 rounded-full mb-2">
             <div class="font-semibold text-xl">{{ $client->name }}</div>
             <div class="font-semibold text-lg">Address: {{ $client->address }}</div>
             <div>Phone Num: {{ $client->phone_number }}</div>
